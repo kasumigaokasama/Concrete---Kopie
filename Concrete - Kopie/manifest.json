@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Λbstract",
-  "version": "1.6.0",
-  "description": "Advanced automation for Wolvesville.",
+  "version": "1.6.1",
+  "description": "Advanced automation for Wolvesville with CORS fix.",
   "author": "ØnyXed",
   "icons": {
     "16": "icons/icon16.png",
@@ -24,22 +24,27 @@
     "tabs",
     "scripting",
     "storage",
-    "debugger"
+    "debugger",
+    "webRequest"
   ],
   "host_permissions": [
     "https://www.wolvesville.com/*",
-    "http://localhost:3000/*"
+    "https://*.api-wolvesville.com/*",
+    "http://localhost:3000/*",
+    "http://localhost/*"
   ],
   "content_scripts": [
     {
       "matches": ["https://www.wolvesville.com/*"],
-      "js": ["Λbstract.js"],
-      "run_at": "document_start"
+      "js": ["cors-fix.js", "Λbstract.js"],
+      "run_at": "document_start",
+      "all_frames": false,
+      "world": "ISOLATED"
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["Λbstract.js"],
+      "resources": ["cors-fix.js", "Λbstract.js"],
       "matches": ["https://www.wolvesville.com/*"]
     }
   ],
